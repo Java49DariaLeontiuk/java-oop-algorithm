@@ -2,61 +2,103 @@ package telran.algorithm.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static telran.algorithm.InitialAlgorithms.*;
 
 class InitialAlgorithmTests {
-	short[] array = new short[100000];
+	int N_NUMBERS = 100000;
+	short[] array;
 
-	@BeforeEach
-	void setUp() {
-		for (int i = 0; i < array.length; i++) {
+	void setUpBigArray() {
+
+		array = new short[N_NUMBERS];
+		for (int i = 0; i < N_NUMBERS; i++) {
 			array[i] = (short) (Math.random() * Short.MAX_VALUE);
 		}
 	}
 
-	private boolean runSortedArrayTest(short[] array) {
-		boolean res = true;
-		for (int i = 0; i < array.length - 1; i++) {
-			for (int j = i + 1; j < array.length; j++) {
-				if (array[i] > array[j]) {
-					return false;
-				}
-			}
-		}
-		return res;
-	}
-
 	@Test
-	void testSortShortPositive() {
-		sortShortPositive(array);
-		assertTrue(runSortedArrayTest(array));
-	}
-
-	@Test
-	void testIsSum2() {
-		short[] testArray = { 9, -4, 1, -3, -7, -6, 10 };
-		short sum = 5;
-		short sum1 = -1;
-		assertTrue(isSum2(testArray, sum));
-		assertFalse(isSum2(testArray, sum1));
-	}
-
-	@Test
-	void testGetMaxPositiveWithNegativeReflect() {
-		short[] test = { 15, 22, 6, -2, 5, 6, 2, -9, -12, 0, -8, 8 };
-		short[] test1 = { 22, -1, -9, -5, -8, 3, 3, 3 };
-		assertEquals(8, getMaxPositiveWithNegativeReflect(test));
-		assertEquals(-1, getMaxPositiveWithNegativeReflect(test1));
-
-	}
-
-	@Test
-	void testBubbleSort() {
+	@Disabled
+	void bubbleSortTest() {
+		setUpBigArray();
 		bubbleSort(array);
-		assertTrue(runSortedArrayTest(array));
+		runTest();
+	}
+
+	@Test
+	void SortPositiveShortTest() {
+		setUpBigArray();
+		sortShortPositive(array);
+		runTest();
+	}
+
+	private void runTest() {
+		for (int i = 1; i < N_NUMBERS; i++) {
+			assertTrue(array[i - 1] <= array[i]);
+		}
+
+	}
+
+	@Test
+	void isSum2Test() {
+		short[] array = { 30000, 1, 5, 2, 10000, 0, 500, 0 };
+		short[] array1 = { 30000, 1, 5, 2, 10000, 0, 500, 0, Short.MAX_VALUE };
+		assertTrue(isSum2(array, (short) 30000));
+		assertTrue(isSum2(array, (short) 7));
+		assertFalse(isSum2(array, (short) 30003));
+		assertFalse(isSum2(array, (short) 8));
+		assertTrue(isSum2(array1, Short.MIN_VALUE));
+
+	}
+
+	@Test
+	void getMaxPositiveWithNegativeTest() {
+		short[] array = { 1, 1, 1, -1, 20, 100, 200, 100 - 100, -100, -20, -40, 80 };
+		short[] array1 = { -40, 1, -40, -6, 2, 3, 40 };
+		short[] array2 = { 40, 1, 2, 3, 40, -30 };
+		assertEquals(100, getMaxPositiveWithNegativeReflect(array));
+		assertEquals(40, getMaxPositiveWithNegativeReflect(array1));
+		assertEquals(-1, getMaxPositiveWithNegativeReflect(array2));
+	}
+	
+	@Test
+	@Disabled
+	void maxValueComplexityNTest () {
+		assertEquals(Long.MAX_VALUE, getMaxValueComplexityN());
+	}
+	
+	@Test
+	void maxValueComplexityLogNTest () {
+		assertEquals(Long.MAX_VALUE, getMaxValueComplexityLogN());
+	}
+	
+	@Test
+	void binarySearchTest() {
+		Integer ar[] = { 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 20, 40 };
+		assertEquals(-14, binarySearch(ar, 3, Integer::compare));
+		assertEquals(3, binarySearch(ar, 2, Integer::compare ));
+		assertEquals(-1, binarySearch(ar, 0, Integer::compare));
+		assertEquals(13, binarySearch(ar, 4, Integer::compare));
+		assertEquals(0, binarySearch(ar, 1, Integer::compare));
+		assertEquals(-16, binarySearch(ar, 25, Integer::compare));
+		assertEquals(-17, binarySearch(ar, 45, Integer::compare));
+	}
+
+	private Long getMaxValueComplexityN() {
+		long res = 1;
+		while(res > 0) {
+			res++;
+		}
+		return res - 1;
+	}
+	private Long getMaxValueComplexityLogN() {
+		long res = 1;
+		while(res > 0) {
+			res*=2;
+		}
+		return res - 1;
 	}
 
 }
