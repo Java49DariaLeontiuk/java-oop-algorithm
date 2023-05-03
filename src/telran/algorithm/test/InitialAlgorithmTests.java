@@ -77,7 +77,7 @@ class InitialAlgorithmTests {
 	@Test
 	void binarySearchTest() {
 		Integer ar[] = { 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 4, 20, 40 };
-		assertEquals(-14, binarySearch(ar, 3, Integer::compare));
+		assertEquals(-14, binarySearch(ar, 3, (a,b) -> Integer.compare(a, b)));
 		assertEquals(3, binarySearch(ar, 2, Integer::compare ));
 		assertEquals(-1, binarySearch(ar, 0, Integer::compare));
 		assertEquals(13, binarySearch(ar, 4, Integer::compare));
