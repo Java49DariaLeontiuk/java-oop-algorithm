@@ -55,6 +55,7 @@ public class ArrayList<T> implements List<T> {
 
 		System.arraycopy(array, index + 1, array, index, size - index - 1);
 		size--;
+		array[size] = null;
 		return res;
 	}
 
@@ -142,21 +143,21 @@ public class ArrayList<T> implements List<T> {
 		do {
 			flUnSort = false;
 			n--;
-			for(int i = 0; i < n; i++) {
+			for (int i = 0; i < n; i++) {
 				if (comp.compare(array[i], array[i + 1]) > 0) {
 					swap(i);
 					flUnSort = true;
 				}
 			}
-		}while(flUnSort);
-		
+		} while (flUnSort);
+
 	}
 
 	private void swap(int i) {
 		T tmp = array[i];
 		array[i] = array[i + 1];
 		array[i + 1] = tmp;
-		
+
 	}
 
 	@Override
@@ -189,8 +190,8 @@ public class ArrayList<T> implements List<T> {
 	public boolean removeIf(Predicate<T> predicate) {
 		int currentSize = size;
 		int index = 0;
-		for(int i = 0; i < currentSize; i++) {
-			if(!predicate.test(array[i])) {
+		for (int i = 0; i < currentSize; i++) {
+			if (!predicate.test(array[i])) {
 				array[index++] = array[i];
 			}
 		}
