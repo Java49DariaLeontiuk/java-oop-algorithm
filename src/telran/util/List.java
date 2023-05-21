@@ -4,24 +4,38 @@ import java.util.Comparator;
 import java.util.function.Predicate;
 
 public interface List<T> extends Collection<T> {
-	void add(int index, T obj);
+void add(int index, T obj);
+T remove(int index);
+T get(int index) ;
+@SuppressWarnings("unchecked")
+default void sort() {
+	sort((Comparator<T>)Comparator.naturalOrder());
 
-	T remove(int index);
+}
+void sort(Comparator<T> comp);
+int indexOf(Predicate<T> predicate);
+int lastIndexOf(Predicate<T> predicate);
+@Override
+ default public boolean remove(T pattern) {
+	boolean res = false;
+	int index = indexOf(pattern);
+	if (index > -1) {
+		res = true;
+		remove(index);
+	}
+	return res;
+}
+@Override
+default boolean contains(T pattern) {
+	return indexOf(pattern) > -1;
+}
 
-	T get(int index);
+default int indexOf(T pattern) {
+	return indexOf(obj -> isEqual(obj, pattern));
+}
+default int lastIndexOf(T pattern) {
+	return lastIndexOf(obj -> isEqual(obj, pattern));
+}
 
-	int indexOf(T pattern);
-
-	int lastIndexOf(T pattern);
-
-	void sort();
-
-	void sort(Comparator<T> comp);
-
-	int indexOf(Predicate<T> predicate);
-
-	int lastIndexOf(Predicate<T> predicate);
-	
-	boolean removeIf(Predicate<T> predicate);
 
 }

@@ -3,3 +3,7 @@
 /List.class
 /LinkedList.class
 /LinkedList$Node.class
+/Range.class
+/Range$RangeIterator.class
+/ArrayList$ArrayListIterator.class
+/LinkedList$LinkedListIterator.class
