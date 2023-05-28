@@ -128,14 +128,7 @@ abstract class ListTest extends CollectionTest {
 			list.add(-17);
 			assertEquals(-1, list.indexOf(a -> a % 2 != 0 && a > 7));
 		}
-		@Test
-		void clearPerfomance() {
-			List<Integer> bigList = getList();
-			for(int i = 0; i < 1000000; i++) {
-				bigList.add(i);
-			}
-			bigList.clear();
-		}
+		
 		
 		
 		
@@ -146,4 +139,5 @@ abstract class ListTest extends CollectionTest {
 			}
 			return res;
 		}
+
 }

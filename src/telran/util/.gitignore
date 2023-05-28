@@ -7,3 +7,6 @@
 /Range$RangeIterator.class
 /ArrayList$ArrayListIterator.class
 /LinkedList$LinkedListIterator.class
+/HashSet.class
+/HashSet$HashSetIterator.class
+/Set.class
